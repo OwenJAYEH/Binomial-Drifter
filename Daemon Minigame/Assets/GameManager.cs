@@ -1,0 +1,174 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
+public class GameManager : MonoBehaviour
+{
+    public GameObject Checkpoint1, Checkpoint2, Checkpoint3, Checkpoint4, Checkpoint5;
+
+    public GameObject playerCar, ghostCar;
+
+    private Rigidbody ghostRB;
+
+    public TextMeshProUGUI currentTimeText, bestTimeText;
+
+    private int checkpointCounter = 0;
+
+    public bool ghostPlaying = false;
+
+    public bool GhostTime = false;
+
+    public bool firstLap = true;
+
+    public bool completeLap = false;
+
+    private float lapTime = 0f;
+    private float bestTime = 1000f;
+
+    public List<PointInTime> pointsInTime;
+    public List<PointInTime> bestsInTime;
+    public List<PointInTime> bestsInTimeCopy;
+
+    private void Start()
+    {
+        pointsInTime = new List<PointInTime>();
+        bestsInTime = new List<PointInTime>();
+        bestsInTimeCopy = new List<PointInTime>();
+
+        ghostRB = ghostCar.GetComponent<Rigidbody>();
+
+        Checkpoint1.SetActive(true);
+        Checkpoint2.SetActive(false);
+        Checkpoint3.SetActive(false);
+        Checkpoint4.SetActive(false);
+        Checkpoint5.SetActive(false);
+    }
+    public void CheckpointIncrease()
+    {
+        checkpointCounter = checkpointCounter + 1;
+    }
+
+    private void Update()
+    {
+        lapTime += Time.deltaTime;
+        currentTimeText.text = lapTime.ToString("F2");
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log(bestsInTimeCopy);
+        }
+
+        switch (checkpointCounter)
+        {
+            case 0:
+                Checkpoint1.SetActive(true);
+
+                if (!firstLap)
+                {
+                    StartGhost(); 
+                }
+                break;
+            case 1:
+                Checkpoint2.SetActive(true);
+                Checkpoint1.SetActive(false);
+                break;
+            case 2:
+                Checkpoint3.SetActive(true);
+                Checkpoint2.SetActive(false);
+                break;
+            case 3:
+                Checkpoint4.SetActive(true);
+                Checkpoint3.SetActive(false);
+                break;
+            case 4:
+                Checkpoint5.SetActive(true);
+                Checkpoint4.SetActive(false);
+                break;
+            case 5:
+
+                Checkpoint5.SetActive(false);
+                Debug.Log(lapTime);
+
+                if (firstLap)
+                {
+                    bestsInTime = pointsInTime;
+                    bestsInTimeCopy = bestsInTime;
+
+                    bestTime = lapTime;
+                    bestTimeText.text = ("Best Lap: ") + (bestTime.ToString("F2"));
+                }
+
+                if (!firstLap)
+                {
+                    if (lapTime < bestTime)
+                    {
+                        bestsInTime = pointsInTime;
+                        bestsInTimeCopy = bestsInTime;
+
+                        bestTime = lapTime;
+                        bestTimeText.text = ("Best Lap: ") + (bestTime.ToString("F2"));
+                    }
+                    else
+                    {
+                        bestsInTimeCopy = new List<PointInTime>();
+                        bestsInTimeCopy = bestsInTime;
+                    }
+                }
+
+                pointsInTime = new List<PointInTime>();
+                firstLap = false;
+                lapTime = 0f;
+                checkpointCounter = 0;
+                break;
+            }
+    }
+
+    private void FixedUpdate()
+    {
+        Record();
+
+        if (ghostPlaying)
+        {
+            Ghost();
+        }
+    }
+
+    void Ghost()
+    {
+        if (bestsInTimeCopy.Count > 0)
+        {
+            Debug.Log("Ghosting");
+            PointInTime bestInTime = bestsInTimeCopy[0];
+            ghostCar.transform.position = bestInTime.position;
+            ghostCar.transform.rotation = bestInTime.rotation;
+            bestsInTimeCopy.RemoveAt(0);
+        }
+        else
+        {
+            StopGhost();
+        }
+    }
+
+    void Record()
+    {
+        pointsInTime.Add(new PointInTime(playerCar.transform.position, playerCar.transform.rotation));
+    }
+
+
+    public void StartGhost()
+    {
+        ghostPlaying = true;
+    }
+
+    public void StopGhost()
+    {
+        ghostPlaying = false;
+    }
+
+    void ClearList()
+    {
+        pointsInTime.Clear();
+    }
+}
