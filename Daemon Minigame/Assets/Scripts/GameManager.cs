@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
@@ -26,6 +27,8 @@ public class GameManager : MonoBehaviour
 
     private float lapTime = 0f;
     private float bestTime = 1000f;
+
+    private bool bestRecord = true;
 
     public List<PointInTime> pointsInTime;
     public List<PointInTime> bestsInTime;
@@ -54,10 +57,14 @@ public class GameManager : MonoBehaviour
     {
         lapTime += Time.deltaTime;
         currentTimeText.text = lapTime.ToString("F2");
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log(bestsInTimeCopy);
+            SceneManager.LoadScene("MainGame");
         }
 
         switch (checkpointCounter)
@@ -98,26 +105,27 @@ public class GameManager : MonoBehaviour
 
                     bestTime = lapTime;
                     bestTimeText.text = ("Best Lap: ") + (bestTime.ToString("F2"));
+                    bestsInTime = new List<PointInTime>();
                 }
 
                 if (!firstLap)
                 {
                     if (lapTime < bestTime)
                     {
-                        bestsInTime = pointsInTime;
-                        bestsInTimeCopy = bestsInTime;
+                        bestsInTimeCopy = pointsInTime;
+                        //bestsInTimeCopy = bestsInTime;
 
                         bestTime = lapTime;
                         bestTimeText.text = ("Best Lap: ") + (bestTime.ToString("F2"));
                     }
                     else
                     {
-                        bestsInTimeCopy = new List<PointInTime>();
                         bestsInTimeCopy = bestsInTime;
                     }
                 }
-
                 pointsInTime = new List<PointInTime>();
+                bestsInTime = new List<PointInTime>();
+
                 firstLap = false;
                 lapTime = 0f;
                 checkpointCounter = 0;
@@ -129,6 +137,10 @@ public class GameManager : MonoBehaviour
     {
         Record();
 
+        if (bestRecord)
+        {
+            BestRecord();
+        }
         if (ghostPlaying)
         {
             Ghost();
@@ -137,23 +149,28 @@ public class GameManager : MonoBehaviour
 
     void Ghost()
     {
-        if (bestsInTimeCopy.Count > 0)
-        {
-            Debug.Log("Ghosting");
+       if (bestsInTimeCopy.Count > 0)
+       {
+            //Debug.Log("Ghosting");
             PointInTime bestInTime = bestsInTimeCopy[0];
             ghostCar.transform.position = bestInTime.position;
             ghostCar.transform.rotation = bestInTime.rotation;
             bestsInTimeCopy.RemoveAt(0);
-        }
+       }
         else
-        {
-            StopGhost();
-        }
+       {
+           StopGhost();
+       }
     }
 
     void Record()
     {
         pointsInTime.Add(new PointInTime(playerCar.transform.position, playerCar.transform.rotation));
+    }
+
+    void BestRecord()
+    {
+        bestsInTime.Add(new PointInTime(ghostCar.transform.position, ghostCar.transform.rotation));
     }
 
 
