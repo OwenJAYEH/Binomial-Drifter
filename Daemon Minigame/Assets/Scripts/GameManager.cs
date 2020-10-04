@@ -62,10 +62,10 @@ public class GameManager : MonoBehaviour
             Application.Quit();
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        /* if (Input.GetKeyDown(KeyCode.Space))
         {
             SceneManager.LoadScene("MainGame");
-        }
+        } */
 
         switch (checkpointCounter)
         {

@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class SimpleCarController : MonoBehaviour {
 
-	public void GetInput()
+
+    public void Start()
+    {
+        rb.centerOfMass = com;
+    }
+
+    public void GetInput()
 	{
 		m_horizontalInput = Input.GetAxis("Horizontal");
 		m_verticalInput = Input.GetAxis("Vertical");
@@ -42,12 +48,32 @@ public class SimpleCarController : MonoBehaviour {
 		_transform.rotation = _quat;
 	}
 
+    private void HandBrake()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            frontDriverW.brakeTorque = brakeT;
+            frontPassengerW.brakeTorque = brakeT;
+            rearDriverW.brakeTorque = brakeT;
+            rearPassengerW.brakeTorque = brakeT;
+        }
+        else
+        {
+            frontDriverW.brakeTorque = 0f;
+            frontPassengerW.brakeTorque = 0f;
+            rearDriverW.brakeTorque = 0f;
+            rearPassengerW.brakeTorque = 0f;
+        }
+
+    }
+
 	private void FixedUpdate()
 	{
 		GetInput();
 		Steer();
 		Accelerate();
 		UpdateWheelPoses();
+        HandBrake();
 	}
 
 	private float m_horizontalInput;
@@ -60,4 +86,9 @@ public class SimpleCarController : MonoBehaviour {
 	public Transform rearDriverT, rearPassengerT;
 	public float maxSteerAngle = 30;
 	public float motorForce = 50;
+
+    public Vector3 com;
+    public Rigidbody rb;
+
+    public float brakeT = 600f;
 }
