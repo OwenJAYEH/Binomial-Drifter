@@ -11,9 +11,9 @@ public class GameManager : MonoBehaviour
 
     public GameObject playerCar, ghostCar;
 
-    private Rigidbody ghostRB;
+    private Rigidbody ghostRB, playerRB;
 
-    public TextMeshProUGUI currentTimeText, bestTimeText;
+    public TextMeshProUGUI currentTimeText, bestTimeText, speedText;
 
     private int checkpointCounter = 0;
 
@@ -42,6 +42,8 @@ public class GameManager : MonoBehaviour
 
         ghostRB = ghostCar.GetComponent<Rigidbody>();
 
+        playerRB = playerCar.GetComponent<Rigidbody>();
+
         Checkpoint1.SetActive(true);
         Checkpoint2.SetActive(false);
         Checkpoint3.SetActive(false);
@@ -55,6 +57,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        speedText.text = playerRB.velocity.z.ToString("F2");
+
         lapTime += Time.deltaTime;
         currentTimeText.text = lapTime.ToString("F2");
         if (Input.GetKeyDown(KeyCode.Escape))
