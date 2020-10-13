@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        speedText.text = playerRB.velocity.z.ToString("F2");
+        speedText.text = (playerRB.velocity.magnitude * 5).ToString("F2") + (" km/h");
 
         lapTime += Time.deltaTime;
         currentTimeText.text = lapTime.ToString("F2");
