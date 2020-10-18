@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
 
     private bool bestRecord = true;
 
+    public bool gamePaused = false;
+
     public List<PointInTime> pointsInTime;
     public List<PointInTime> bestsInTime;
     public List<PointInTime> bestsInTimeCopy;
@@ -66,10 +68,20 @@ public class GameManager : MonoBehaviour
             Application.Quit();
         }
 
-        /* if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            SceneManager.LoadScene("MainGame");
-        } */
+            if (!gamePaused)
+            {
+                Time.timeScale = 0f;
+                gamePaused = true;
+            }
+            else if (gamePaused)
+            {
+                Time.timeScale = 1f;
+                gamePaused = false;
+            }
+            
+        }
 
         switch (checkpointCounter)
         {
