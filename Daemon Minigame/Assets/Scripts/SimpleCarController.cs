@@ -74,7 +74,9 @@ public class SimpleCarController : MonoBehaviour {
 		Accelerate();
 		UpdateWheelPoses();
         HandBrake();
-	}
+
+        rb.AddForce(-transform.up * rb.velocity.magnitude);
+    }
 
 	private float m_horizontalInput;
 	private float m_verticalInput;
@@ -89,6 +91,30 @@ public class SimpleCarController : MonoBehaviour {
 
     public Vector3 com;
     public Rigidbody rb;
+
+    public float xRotationLimit = 20f;
+    public float yRotationLimit = 20f;
+    public float zRotationLimit = 20f;
+
+    /* void Update()
+    {
+
+        if (transform.rotation.eulerAngles.x > xRotationLimit)
+        {
+            transform.rotation = Quaternion.identity;
+        }
+
+        if (transform.rotation.eulerAngles.y > yRotationLimit)
+        {
+            transform.rotation = Quaternion.identity;
+        }
+
+        if (transform.rotation.eulerAngles.z > zRotationLimit)
+        {
+            transform.rotation = Quaternion.identity;
+        }
+    } */
+
 
     public float brakeT = 600f;
 }

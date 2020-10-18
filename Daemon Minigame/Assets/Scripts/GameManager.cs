@@ -210,4 +210,9 @@ public class GameManager : MonoBehaviour
     {
         pointsInTime.Clear();
     }
+
+    public void RestartGame()
+    {
+        Application.Quit();
+    }
 }
