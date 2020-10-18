@@ -36,8 +36,13 @@ public class GameManager : MonoBehaviour
     public List<PointInTime> bestsInTime;
     public List<PointInTime> bestsInTimeCopy;
 
+    public GameObject gameUI;
+    public GameObject pauseUI;
+
     private void Start()
     {
+        pauseUI.SetActive(false);
+
         pointsInTime = new List<PointInTime>();
         bestsInTime = new List<PointInTime>();
         bestsInTimeCopy = new List<PointInTime>();
@@ -63,20 +68,21 @@ public class GameManager : MonoBehaviour
 
         lapTime += Time.deltaTime;
         currentTimeText.text = lapTime.ToString("F2");
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (!gamePaused)
             {
+                pauseUI.SetActive(true);
+                gameUI.SetActive(false);
                 Time.timeScale = 0f;
                 gamePaused = true;
+
             }
             else if (gamePaused)
             {
+                pauseUI.SetActive(false);
+                gameUI.SetActive(true);
                 Time.timeScale = 1f;
                 gamePaused = false;
             }
