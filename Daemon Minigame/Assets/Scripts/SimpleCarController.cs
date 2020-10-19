@@ -5,6 +5,26 @@ using UnityEngine;
 public class SimpleCarController : MonoBehaviour {
 
 
+    private float m_horizontalInput;
+    private float m_verticalInput;
+    private float m_steeringAngle;
+
+    public WheelCollider frontDriverW, frontPassengerW;
+    public WheelCollider rearDriverW, rearPassengerW;
+    public Transform frontDriverT, frontPassengerT;
+    public Transform rearDriverT, rearPassengerT;
+    public float maxSteerAngle = 30;
+    public float motorForce = 50;
+
+    public Vector3 com;
+    public Rigidbody rb;
+
+    public float xRotationLimit = 20f;
+    public float yRotationLimit = 20f;
+    public float zRotationLimit = 20f;
+
+    public float brakeT = 600f;
+
     public void Start()
     {
         rb.centerOfMass = com;
@@ -78,43 +98,4 @@ public class SimpleCarController : MonoBehaviour {
         rb.AddForce(-transform.up * rb.velocity.magnitude);
     }
 
-	private float m_horizontalInput;
-	private float m_verticalInput;
-	private float m_steeringAngle;
-
-	public WheelCollider frontDriverW, frontPassengerW;
-	public WheelCollider rearDriverW, rearPassengerW;
-	public Transform frontDriverT, frontPassengerT;
-	public Transform rearDriverT, rearPassengerT;
-	public float maxSteerAngle = 30;
-	public float motorForce = 50;
-
-    public Vector3 com;
-    public Rigidbody rb;
-
-    public float xRotationLimit = 20f;
-    public float yRotationLimit = 20f;
-    public float zRotationLimit = 20f;
-
-    /* void Update()
-    {
-
-        if (transform.rotation.eulerAngles.x > xRotationLimit)
-        {
-            transform.rotation = Quaternion.identity;
-        }
-
-        if (transform.rotation.eulerAngles.y > yRotationLimit)
-        {
-            transform.rotation = Quaternion.identity;
-        }
-
-        if (transform.rotation.eulerAngles.z > zRotationLimit)
-        {
-            transform.rotation = Quaternion.identity;
-        }
-    } */
-
-
-    public float brakeT = 600f;
 }

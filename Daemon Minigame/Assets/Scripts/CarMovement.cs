@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class CarMovement : MonoBehaviour
 {
- public Rigidbody rb;
+
+    // Used to set variables to the car, such as gravity, speed, etc.
+       public Rigidbody rb;
 
     public float speed = 12f;
     public float rotateSpeed = 30f;
