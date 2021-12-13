@@ -70,7 +70,7 @@ public class SimpleCarController : MonoBehaviour {
 
     private void HandBrake()
     {
-        if (Input.GetAxis("Brake") >= .5f)
+        if (Input.GetKey(KeyCode.Space))
         {
             frontDriverW.brakeTorque = brakeT;
             frontPassengerW.brakeTorque = brakeT;
