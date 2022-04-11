@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 
     private Rigidbody ghostRB, playerRB;
 
-    public TextMeshProUGUI currentTimeText, bestTimeText, speedText;
+    public TextMeshProUGUI currentTimeText, bestTimeText;
 
     private int checkpointCounter = 0;
 
@@ -70,7 +70,12 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         // Reads out the current speed to the player in UI. Multiplied by 5 to make the numbers more fast and exciting.
-        speedText.text = (playerRB.velocity.magnitude * 5).ToString("F2") + (" km/h");
+        //speedText.text = (playerRB.velocity.magnitude * 5).ToString("F2") + (" km/h");
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene("MainGame");
+        }
 
         // Keeps control of lap time.
         lapTime += Time.deltaTime;
