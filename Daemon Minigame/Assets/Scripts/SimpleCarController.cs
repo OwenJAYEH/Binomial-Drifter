@@ -5,7 +5,7 @@ using UnityEngine;
 public class SimpleCarController : MonoBehaviour {
 
 
-    public float m_horizontalInput;
+    private float m_horizontalInput;
     private float m_verticalInput;
     private float m_steeringAngle;
 
@@ -25,8 +25,6 @@ public class SimpleCarController : MonoBehaviour {
 
     public float brakeT = 600f;
 
-    public GameObject wheel;
-
     public void Start()
     {
         rb.centerOfMass = com;
@@ -34,7 +32,7 @@ public class SimpleCarController : MonoBehaviour {
 
     public void GetInput()
 	{
-		m_horizontalInput = wheel.transform.localRotation.y * 2;
+		m_horizontalInput = Input.GetAxis("Horizontal");
 		m_verticalInput = Input.GetAxis("Vertical");
 	}
 
