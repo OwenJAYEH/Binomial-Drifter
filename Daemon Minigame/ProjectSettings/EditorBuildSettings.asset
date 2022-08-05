@@ -6,9 +6,43 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Title.unity
-    guid: 0f137159d1ad05e43bb99e9fab84edc4
+    path: Assets/UVC_WithoutDependencies/Scenes/Menu.unity
+    guid: b4034083e1239b34584e91eca1efd527
   - enabled: 1
-    path: Assets/Scenes/MainGame.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
-  m_configObjects: {}
+    path: Assets/UVC_WithoutDependencies/Scenes/DriftScene.unity
+    guid: 8b9c5f7a7f711b74daac6e2378071e0c
+  - enabled: 1
+    path: Assets/UVC_WithoutDependencies/Scenes/DriftSceneNight.unity
+    guid: 4712883493a91204badffc7c06be7c02
+  - enabled: 1
+    path: Assets/UVC_WithoutDependencies/Scenes/RaceScene.unity
+    guid: 34deb619ca55ddd499ae4aaab13a27b2
+  - enabled: 1
+    path: Assets/UVC_WithoutDependencies/Scenes/DamageScene.unity
+    guid: 6efa18e93fb1dbb45a2d6d518b91dcec
+  - enabled: 1
+    path: Assets/UVC_WithoutDependencies/Scenes/MobileScene.unity
+    guid: c67f8d56836001a4184d7cffd67ea3a6
+  - enabled: 1
+    path: Assets/UVC_WithoutDependencies/Scenes/RaceScene_RaceAI.unity
+    guid: 842f6015a1f133f4a8c8a5bef854edbe
+  - enabled: 1
+    path: Assets/UVC_WithoutDependencies/Scenes/RaceScene_Bikes_RaceAI.unity
+    guid: fa2dae15a097d594d8258c1a966567f9
+  - enabled: 1
+    path: Assets/UVC_WithoutDependencies/Scenes/RaceScene_PursuitAI.unity
+    guid: 0b869c989e9d5014b93fbc1e86b75675
+  - enabled: 1
+    path: Assets/UVC_WithoutDependencies/Scenes/DriftScene_DriftAI.unity
+    guid: cdfcdadea2ad74f4682a592cce9aae76
+  - enabled: 1
+    path: Assets/UVC_WithoutDependencies/Scenes/MobileScene_RaceAI.unity
+    guid: 3c58d94c079c64440acdebacb4596d67
+  - enabled: 1
+    path: Assets/UVC_WithoutDependencies/Scenes/MobileScene_DriftAI.unity
+    guid: ee919ffe201eac042ac41b404210be19
+  - enabled: 1
+    path: Assets/UVC_WithoutDependencies/Scenes/MobileScene_PursuitAI.unity
+    guid: 2e37117b621b7de4ca04d5d9fdb3ef97
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 73f6fe498ac67d44aa6d2f3486bfc9c3, type: 2}
