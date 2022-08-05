@@ -33,7 +33,7 @@ public class SimpleCarController : MonoBehaviour {
     public void GetInput()
 	{
 		m_horizontalInput = Input.GetAxis("Horizontal");
-		m_verticalInput = Input.GetAxis("Accelerate");
+		m_verticalInput = Input.GetAxis("Vertical");
 	}
 
 	private void Steer()
